@@ -41,20 +41,20 @@ public class TongYiQuanXianGuanLiController {
     private GroupQuanXianService groupQuanXianService;
 
 
-//    /***
-//    * @Description: 获取所有页面加载所需数据
-//    * @Param: []
-//    * @return: com.czu.yxySystem.util.R
-//    * @Author: Yxy
-//    * @Date: 2021/1/13
-//    */
-//    @RequestMapping("/getAllData.do")
-//    public R getAllData(){
-//        List<UserDO> userList = userService.list();
-//        List<GroupDO> groupSeList = groupService.list();
-//        List<QuanXianDO> quanXianList = quanXianService.list();
-//        return R.ok().put("userList",userList).put("groupSeList",groupSeList).put("quanXianList",quanXianList);
-//    }
+    /***
+    * @Description: 获取所有页面加载所需数据
+    * @Param: []
+    * @return: com.czu.yxySystem.util.R
+    * @Author: Yxy
+    * @Date: 2021/1/13
+    */
+    @RequestMapping("/getAllData.do")
+    public R getAllData(){
+        List<UserDO> userList = userService.list();
+        List<GroupDO> groupSeList = groupService.list();
+        List<QuanXianDO> quanXianList = quanXianService.list();
+        return R.ok().put("userList",userList).put("groupSeList",groupSeList).put("quanXianList",quanXianList);
+    }
 
     /***
     * @Description: 根据userId获取当前用户所属组
