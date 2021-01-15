@@ -13,11 +13,11 @@ import java.util.List;
 @Data
 public class UserDataDTO {
 
-    private String yongHu;
+    private Integer yongHu;
 
     private List<Integer> jueSeList;
 
-    private String jueSe;
+    private Integer jueSe;
 
     private List<Integer> quanXianList;
 }

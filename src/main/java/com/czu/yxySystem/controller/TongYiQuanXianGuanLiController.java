@@ -1,6 +1,7 @@
 package com.czu.yxySystem.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.czu.yxySystem.entity.DO.*;
 import com.czu.yxySystem.entity.DTO.UserDataDTO;
 import com.czu.yxySystem.service.*;
@@ -40,20 +41,20 @@ public class TongYiQuanXianGuanLiController {
     private GroupQuanXianService groupQuanXianService;
 
 
-    /***
-    * @Description: 获取所有页面加载所需数据
-    * @Param: []
-    * @return: com.czu.yxySystem.util.R
-    * @Author: Yxy
-    * @Date: 2021/1/13
-    */
-    @RequestMapping("/getAllData.do")
-    public R getAllData(){
-        List<UserDO> userList = userService.list();
-        List<GroupDO> groupSeList = groupService.list();
-        List<QuanXianDO> quanXianList = quanXianService.list();
-        return R.ok().put("userList",userList).put("groupSeList",groupSeList).put("quanXianList",quanXianList);
-    }
+//    /***
+//    * @Description: 获取所有页面加载所需数据
+//    * @Param: []
+//    * @return: com.czu.yxySystem.util.R
+//    * @Author: Yxy
+//    * @Date: 2021/1/13
+//    */
+//    @RequestMapping("/getAllData.do")
+//    public R getAllData(){
+//        List<UserDO> userList = userService.list();
+//        List<GroupDO> groupSeList = groupService.list();
+//        List<QuanXianDO> quanXianList = quanXianService.list();
+//        return R.ok().put("userList",userList).put("groupSeList",groupSeList).put("quanXianList",quanXianList);
+//    }
 
     /***
     * @Description: 根据userId获取当前用户所属组
@@ -90,8 +91,16 @@ public class TongYiQuanXianGuanLiController {
     */
     @RequestMapping("/fenPeiGroup.do")
     public R fenPeiGroup(@RequestBody UserDataDTO userDataDTO){
-        System.out.println(userDataDTO);
-        return R.ok();
+        Integer userId = userDataDTO.getYongHu();
+        List<Integer> jueSeList = userDataDTO.getJueSeList();
+        userGroupService.remove(new UpdateWrapper<UserGroupDO>().eq("userId",userId));
+        for(Integer groupId:jueSeList){
+            UserGroupDO userGroupDO = new UserGroupDO();
+            userGroupDO.setUserId(userId);
+            userGroupDO.setGroupId(groupId);
+            userGroupService.save(userGroupDO);
+        }
+        return R.ok("修改成功！");
     }
 
     /***
@@ -103,7 +112,15 @@ public class TongYiQuanXianGuanLiController {
      */
     @RequestMapping("/fenPeiQuanXian.do")
     public R fenPeiQuanXian(@RequestBody UserDataDTO userDataDTO){
-        System.out.println(userDataDTO);
-        return R.ok();
+        Integer groupId = userDataDTO.getJueSe();
+        List<Integer> quanXianList = userDataDTO.getQuanXianList();
+        groupQuanXianService.remove(new UpdateWrapper<GroupQuanXianDO>().eq("groupId",groupId));
+        for(Integer quanXianId:quanXianList){
+            GroupQuanXianDO groupQuanXianDO = new GroupQuanXianDO();
+            groupQuanXianDO.setGroupId(groupId);
+            groupQuanXianDO.setQuanXianId(quanXianId);
+            groupQuanXianService.save(groupQuanXianDO);
+        }
+        return R.ok("修改成功！");
     }
 }

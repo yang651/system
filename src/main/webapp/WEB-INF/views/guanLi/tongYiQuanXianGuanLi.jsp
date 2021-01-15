@@ -129,7 +129,6 @@
                     layer.close(index);
                     if (code == 0) {
                         layer.msg(res.msg, {offset: '100px'});
-                        reload_jueSeCheckBox(userData.yongHu);
                     } else {
                         layer.msg(res.msg, {offset: '100px', anim: 6});
                     }
@@ -152,7 +151,7 @@
             var index = layer.load(0, {offset: '100px'});
             //角色列表
             var quanXianArray = [];
-            $.each(form.val('form_jueSeFenPei'), function (i) {
+            $.each(form.val('form_quanXianFenPei'), function (i) {
                 quanXianArray.push(i.substring(5, i.length - 1));
             });
             userData.quanXianList = quanXianArray;
@@ -166,7 +165,6 @@
                     layer.close(index);
                     if (code == 0) {
                         layer.msg(res.msg, {offset: '100px'});
-                        reload_quanXianCheckBox(data);
                     } else {
                         layer.msg(res.msg, {offset: '100px', anim: 6});
                     }
@@ -179,43 +177,6 @@
             return false;
 
         })
-
-        function reload_jueSeCheckBox(data){
-            formRest('#form_jueSeFenPei');
-            $.ajax({
-                type: 'POST',
-                url: '${path}/tongYiQuanXianGuanLi/getGroupByUserId.do',
-                data: {"userId": data},
-                success: function (res) {
-                    $.each(res.list, function (i, val) {
-                        $('input[name="jsck[' + val.groupId + ']"]').prop("checked", true);
-                    });
-                    form.render();
-                },
-                error: function (error) {
-                    console.log(error);
-                }
-            });
-        }
-
-        function reload_quanXianCheckBox(data){
-            formRest('#form_quanXianFenPei');
-            $.ajax({
-                type: 'POST',
-                url: '${path}/tongYiQuanXianGuanLi/getQuanXianByGroupId.do',
-                data: {"groupId": data},
-                success: function (res) {
-                    $.each(res.list, function (i, val) {
-                        $('input[name="qxck[' + val.quanXianId + ']"]').prop("checked", true);
-                    });
-                    form.render();
-                },
-                error: function (error) {
-                    console.log(error);
-                }
-            });
-        }
-
 
         form.on('select(select_yongHu)', function (data) {
             formRest('#form_jueSeFenPei');
