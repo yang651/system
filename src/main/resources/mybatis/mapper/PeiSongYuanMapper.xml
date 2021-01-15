@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.czu.yxySystem.mapper.PeiSongYuanMapper">
+    <select id="getList" resultType="com.czu.yxySystem.entity.DO.PeiSongYuanDO">
+        select * from peiSongYuan
+        <where>
+            <if test="xingMing != ''">
+                xingMing like '%'+#{xingMing}+'%'
+            </if>
+            <if test="chengHao != ''">
+                and xingMing like '%'+#{xingMing}+'%'
+            </if>
+            <if test="fuZeQuYu != ''">
+                and xingMing like '%'+#{xingMing}+'%'
+            </if>
+        </where>
+    </select>
+
+    <select id="getCount" resultType="java.lang.Integer">
+        select count(id) from peiSongYuan
+        <where>
+            <if test="xingMing != ''">
+                xingMing like '%'+#{xingMing}+'%'
+            </if>
+            <if test="chengHao != ''">
+                and xingMing like '%'+#{xingMing}+'%'
+            </if>
+            <if test="fuZeQuYu != ''">
+                and xingMing like '%'+#{xingMing}+'%'
+            </if>
+        </where>
+    </select>
+</mapper>

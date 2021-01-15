@@ -135,6 +135,18 @@ public class GuanLiCommonController {
         return "guanLi/tongYiQuanXianGuanLi";
     }
 
+    /**
+     * @Description: 跳转到配送员信息管理页面
+     * @Param: []
+     * @return: java.lang.String
+     * @Author: Yxy
+     * @Date:  14:22
+     **/
+    @GetMapping("/to_peiSongYuanGuanLi.do")
+    public String toPeiSongYuanGuanLi(){
+        return "guanLi/peiSongYuanGuanLi";
+    }
+
 
 
 

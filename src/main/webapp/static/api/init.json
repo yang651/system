@@ -16,6 +16,32 @@
       "target": "_self",
       "child": [
         {
+          "title": "信息管理",
+          "href": "",
+          "icon": "fa fa-gears",
+          "target": "_self",
+          "child": [
+            {
+              "title": "配送员管理",
+              "href": "to_peiSongYuanGuanLi.do",
+              "icon": "fa fa-superpowers",
+              "target": "_self"
+            },
+            {
+              "title": "水果提供商管理",
+              "href": "to_shuiGuoTiGongShangGuanLi.do",
+              "icon": "fa fa-superpowers",
+              "target": "_self"
+            },
+            {
+              "title": "水果需求商管理",
+              "href": "to_shuiGuoXuQiuSangGuanLi.do",
+              "icon": "fa fa-superpowers",
+              "target": "_self"
+            }
+          ]
+        },
+        {
           "title": "权限管理",
           "href": "",
           "icon": "fa fa-gears",
