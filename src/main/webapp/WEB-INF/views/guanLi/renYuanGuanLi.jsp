@@ -4,7 +4,7 @@
 %>
 <html>
 <head>
-    <title>角色管理</title>
+    <title>人员管理</title>
     <link rel="icon" href="${path}/static/images/favicon.ico">
     <link rel="stylesheet" href="${path}/static/lib/layui-v2.5.5/css/layui.css" media="all">
     <link rel="stylesheet" href="${path}/static/css/public.css" media="all">
@@ -37,19 +37,21 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">姓 名</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="peiSongYuanName" id="peiSongYuanName" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">称号</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="chengHao" id="chengHao" autocomplete="off" class="layui-input">
+                                <input type="text" name="renYuanName" id="renYuanName" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline">
                             <label class="layui-form-label">负责区域</label>
                             <div class="layui-input-inline">
                                 <input type="text" name="fuZeQuYu" id="fuZeQuYu" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">称号</label>
+                            <div class="layui-input-inline">
+                                <select name="chengHao" id="chengHao" lay-verify="">
+                                    <option value="-1">请选择一个称号</option>
+                                </select>
                             </div>
                         </div>
                         <div class="layui-inline">
@@ -64,15 +66,15 @@
 
         <script type="text/html" id="toolbarDemo">
             <div class="layui-btn-container">
-                <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 添加</button>
+                <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add">入职</button>
             </div>
         </script>
 
         <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
 
         <script type="text/html" id="currentTableBar">
-            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
-            <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
+            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">调整</a>
+            <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">离职</a>
         </script>
 
     </div>
@@ -88,9 +90,34 @@
             table = layui.table,
             layer = layui.layer;
 
+        $(function () {
+            //渲染称号select
+            select_reload_chengHao();
+        });
+
+        function select_reload_chengHao() {
+            var index = layer.load();
+            $.ajax({
+                type: 'POST',
+                url: '${path}/renYuan/getChengHaoList.do',
+                success: function (res) {
+                    if (res.code == 0) {
+                        $.each(res.list, function (i, val) {
+                            $('#chengHao').append('<option value="' + val.chengHao + '">' + val.chengHao + '</option>');
+                        })
+                        layer.close(index);
+                    } else {
+                        layer.close(index);
+                        layer.msg(res.msg);
+                    }
+                    form.render();
+                }
+            })
+        }
+
         table.render({
             elem: '#currentTableId',
-            url: '${path}/peiSongYuan/getList.do',
+            url: '${path}/renYuan/getList.do',
             method: 'POST',
             toolbar: '#toolbarDemo',
             defaultToolbar: ['filter', 'exports', 'print'],
@@ -126,7 +153,7 @@
                     curr: 1
                 }
                 , where: {
-                    'xingMing': data.peiSongYuanName,
+                    'xingMing': data.renYuanName,
                     'chengHao': data.chengHao,
                     'fuZeQuYu': data.fuZeQuYu
                 }
@@ -147,7 +174,7 @@
                     shadeClose: true,
                     area: ['80%', '80%'],
                     offset: 't',
-                    content: '${path}/to_jueSeSheZhi_add.do',
+                    content: '${path}/to_renYuanAdd.do',
                     success: function () {
                         // layer.full(index);
                     }
@@ -209,7 +236,6 @@
                 });
             }
         });
-
     });
 </script>
 </body>

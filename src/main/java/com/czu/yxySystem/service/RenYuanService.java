@@ -1,8 +1,7 @@
 package com.czu.yxySystem.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.czu.yxySystem.entity.DO.PeiSongYuanDO;
-import org.springframework.stereotype.Service;
+import com.czu.yxySystem.entity.DO.RenYuanDO;
 
 import java.util.List;
 
@@ -12,7 +11,7 @@ import java.util.List;
  * @Date 2021/1/15 15:20
  **/
 
-public interface PeiSongYuanService extends IService<PeiSongYuanDO> {
+public interface RenYuanService extends IService<RenYuanDO> {
 
     /**
      * @Description: 获取配送员list
@@ -21,7 +20,7 @@ public interface PeiSongYuanService extends IService<PeiSongYuanDO> {
      * @Author: Yxy
      * @Date: 2021/1/15 15:41
      **/
-    List<PeiSongYuanDO> getList(Integer page, Integer limit, String xingMing, String chengHao, String fuZeQuYu);
+    List<RenYuanDO> getList(Integer page, Integer limit, String xingMing, String chengHao, String fuZeQuYu);
 
 
     /**

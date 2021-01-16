@@ -1,4 +1,4 @@
-package com.czu.yxySystem.entity.DO;
+package com.czu.yxySystem.entity.DTO;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -10,42 +10,20 @@ import lombok.Data;
 import java.util.Date;
 
 /**
- * @Description 配送员信息DO
+ * @Description 人员管理使用的数据传输类
  * @Author Yxy
  * @Date 2021/1/15 15:13
  **/
 @Data
-@TableName("peiSongYuan")
-public class PeiSongYuanDO {
-    @TableId(value = "id",type = IdType.AUTO)
+public class RenYuanGuanLiDTO {
     private Integer id;
-
-    @TableField("xingMing")
     private String xingMing;
-
-    @TableField("nianLing")
     private Integer nianLing;
-
-    @JsonFormat(pattern = "yyyy-MM-dd HH-mm-ss")
-    @TableField("ruZhiRiQi")
-    private Date ruZhiRiQi;
-
-    @TableField("chengHao")
+    private String ruZhiRiQi;
     private String chengHao;
-
-    @TableField("lianXiDianHua")
     private String lianXiDianHua;
-
-    @TableField("zhuangTai")
     private Integer zhuangTai;
-
-    @TableField("xingBie")
     private String xingBie;
-
-    @TableField("shiFouLiZhi")
     private Boolean shiFouLiZhi;
-
-    @JsonFormat(pattern = "yyyy-MM-dd HH-mm-ss")
-    @TableField("jiLuRiQo")
-    private Date jiLuRiQo;
+    private String jiLuRiQi;
 }

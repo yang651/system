@@ -2,6 +2,7 @@ package com.czu.yxySystem.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /***
 * @Description: 管理页面跳转通用控制器
@@ -142,9 +143,21 @@ public class GuanLiCommonController {
      * @Author: Yxy
      * @Date:  14:22
      **/
-    @GetMapping("/to_peiSongYuanGuanLi.do")
+    @GetMapping("/to_renYuanGuanLi.do")
     public String toPeiSongYuanGuanLi(){
-        return "guanLi/peiSongYuanGuanLi";
+        return "guanLi/renYuanGuanLi";
+    }
+    
+    /**
+     * @Description: 跳转到人员add界面（入职）
+     * @Param: []
+     * @return: java.lang.String
+     * @Author: Yxy
+     * @Date: 2021/1/16 13:56 
+     **/
+    @RequestMapping("/to_renYuanAdd.do")
+    public String toRenYuanAdd(){
+        return "guanLi/renYuanGuanLi_add";
     }
 
 
