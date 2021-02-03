@@ -5,14 +5,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /***
-* @Description: 管理页面跳转通用控制器
+* @Description: 页面跳转通用控制器
 * @Param:
 * @return:
 * @Author: Yxy
 * @Date: 2020/12/26
 */
 @Controller
-public class GuanLiCommonController {
+public class CommonController {
 
     /***
     * @Description: 跳转到权限设置页面
@@ -158,6 +158,18 @@ public class GuanLiCommonController {
     @RequestMapping("/to_renYuanAdd.do")
     public String toRenYuanAdd(){
         return "guanLi/renYuanGuanLi_add";
+    }
+
+    /**
+     * @Description: 跳转到人员调整界面
+     * @Param: []
+     * @return: java.lang.String
+     * @Author: Yxy
+     * @Date: 2021/2/3 9:24
+     **/
+    @RequestMapping("to_renYuanGuanLi_edit.do")
+    public String toRenYuanGuanLiEdit(){
+        return "guanLi/renYuanGuanLi_edit";
     }
 
 

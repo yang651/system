@@ -61,6 +61,7 @@
 
     function child(editData) {
         layui.use(['form'], function () {
+
             var form = layui.form,
                 layer = layui.layer,
                 $ = layui.$;
@@ -102,7 +103,7 @@
 
             //数据回显
             function form_data_show() {
-                show_k_b(editData.line);
+                console.log(editData);
                 form.val("itemEditForm", {
                     "quanXianId": editData.quanXianId
                     , "quanXianName": editData.quanXianName
@@ -116,14 +117,6 @@
                 show_k_b(data.value);
             });
 
-            //系数及截距 输入框是否显示
-            function show_k_b(show) {
-                if ('' + show == 'true') {
-                    $('.line').show();
-                } else {
-                    $('.line').hide();
-                }
-            }
         });
 
     }

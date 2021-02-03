@@ -22,7 +22,7 @@ public interface RenYuanMapper extends BaseMapper<RenYuanDO> {
      * @Author: Yxy
      * @Date: 2021/1/15 15:43
      **/
-    List<RenYuanDO> getList(@Param("xingMing") String xingMing, @Param("chengHao")String chengHao, @Param("fuZeQuYu")String fuZeQuYu);
+    List<RenYuanDO> getList(@Param("xingMing") String xingMing, @Param("chengHao") String chengHao, @Param("shiFouLiZhi") boolean shiFouLiZhi);
 
     /**
      * @Description: 获取配送员数量
@@ -31,6 +31,6 @@ public interface RenYuanMapper extends BaseMapper<RenYuanDO> {
      * @Author: Yxy
      * @Date: 2021/1/15 15:53
      **/
-    int getCount(@Param("xingMing") String xingMing, @Param("chengHao")String chengHao, @Param("fuZeQuYu")String fuZeQuYu);
+    int getCount(@Param("xingMing") String xingMing, @Param("chengHao") String chengHao, @Param("shiFouLiZhi") boolean shiFouLiZhi);
 
 }

@@ -9,10 +9,10 @@
                 xingMing like '%'+#{xingMing}+'%'
             </if>
             <if test="chengHao != ''">
-                and xingMing like '%'+#{xingMing}+'%'
+                and chengHao like '%'+#{chengHao}+'%'
             </if>
-            <if test="fuZeQuYu != ''">
-                and xingMing like '%'+#{xingMing}+'%'
+            <if test="shiFouLiZhi != null">
+                and shiFouLiZhi = #{shiFouLiZhi};
             </if>
         </where>
     </select>
@@ -24,10 +24,10 @@
                 xingMing like '%'+#{xingMing}+'%'
             </if>
             <if test="chengHao != ''">
-                and xingMing like '%'+#{xingMing}+'%'
+                and chengHao like '%'+#{chengHao}+'%'
             </if>
-            <if test="fuZeQuYu != ''">
-                and xingMing like '%'+#{xingMing}+'%'
+            <if test="shiFouLiZhi != null">
+                and shiFouLiZhi = #{shiFouLiZhi} ;
             </if>
         </where>
     </select>

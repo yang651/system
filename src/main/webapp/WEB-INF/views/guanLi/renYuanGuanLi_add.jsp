@@ -102,8 +102,11 @@
             laydate = layui.laydate,
             table = layui.table;
 
+        $(this).removeAttr("lay-key");
+
         laydate.render({
-            elem: '#ruZhiRiQi' //指定元素
+            elem: '#ruZhiRiQi', //指定元素
+            trigger : 'click'
         });
 
 

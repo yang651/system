@@ -20,7 +20,7 @@ public interface RenYuanService extends IService<RenYuanDO> {
      * @Author: Yxy
      * @Date: 2021/1/15 15:41
      **/
-    List<RenYuanDO> getList(Integer page, Integer limit, String xingMing, String chengHao, String fuZeQuYu);
+    List<RenYuanDO> getList(Integer page, Integer limit, String xingMing, String chengHao, boolean shiFouLiZhi);
 
 
     /**
@@ -30,5 +30,5 @@ public interface RenYuanService extends IService<RenYuanDO> {
      * @Author: Yxy
      * @Date: 2021/1/15 15:52 
      **/
-    int getCount(Integer page, Integer limit, String xingMing, String chengHao, String fuZeQuYu);
+    int getCount(Integer page, Integer limit, String xingMing, String chengHao, boolean shiFouLiZhi);
 }

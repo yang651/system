@@ -37,20 +37,24 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">姓 名</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="renYuanName" id="renYuanName" autocomplete="off" class="layui-input">
+                                <input type="text" name="renYuanName" id="renYuanName" autocomplete="off"
+                                       class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline">
-                            <label class="layui-form-label">负责区域</label>
+                            <label class="layui-form-label">在职状态</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="fuZeQuYu" id="fuZeQuYu" autocomplete="off" class="layui-input">
+                                <select name="zaiZhiZhuangTai" id="zaiZhiZhuangTai" lay-verify="">
+                                    <option value="在职">在职</option>
+                                    <option value="离职">离职</option>
+                                </select>
                             </div>
                         </div>
                         <div class="layui-inline">
                             <label class="layui-form-label">称号</label>
                             <div class="layui-input-inline">
                                 <select name="chengHao" id="chengHao" lay-verify="">
-                                    <option value="-1">请选择一个称号</option>
+                                    <option value="">请选择一个称号</option>
                                 </select>
                             </div>
                         </div>
@@ -83,7 +87,7 @@
 <script src="${path}/static/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
 
 <script>
-    layui.use(['form', 'jquery', 'layer', 'tree','table'], function () {
+    layui.use(['form', 'jquery', 'layer', 'tree', 'table'], function () {
         var $ = layui.jquery,
             form = layui.form,
             tree = layui.tree,
@@ -129,15 +133,15 @@
                     "data": res.list //解析数据列表
                 };
             }, cols: [[
-                {type: 'numbers',title: '序号',width: 50,align: "center"},
-                {field: 'xingMing', minWidth: 100, title: '姓名',align: "center"},
-                {field: 'xingBie', minWidth: 100, title: '性别',align: "center"},
-                {field: 'nianLing', minWidth: 100, title: '年龄',align: "center"},
-                {field: 'ruZhiRiQi', minWidth: 100, title: '入职日期',align: "center"},
-                {field: 'jiLuRiQi', minWidth: 100, title: '记录日期',align: "center"},
-                {field: 'chengHao', minWidth: 100, title: '称号',align: "center"},
-                {field: 'lianXiDianHua', minWidth: 100, title: '联系电话',align: "center"},
-                {field: 'zhuangTai', minWidth: 100, title: '状态',align: "center"},
+                {type: 'numbers', title: '序号', width: 50, align: "center"},
+                {field: 'xingMing', minWidth: 100, title: '姓名', align: "center"},
+                {field: 'xingBie', minWidth: 100, title: '性别', align: "center"},
+                {field: 'nianLing', minWidth: 100, title: '年龄', align: "center"},
+                {field: 'ruZhiRiQi', minWidth: 100, title: '入职日期', align: "center"},
+                {field: 'jiLuRiQi', minWidth: 100, title: '记录日期', align: "center"},
+                {field: 'chengHao', minWidth: 100, title: '称号', align: "center"},
+                {field: 'lianXiDianHua', minWidth: 100, title: '联系电话', align: "center"},
+                {field: 'zhuangTai', minWidth: 100, title: '状态', align: "center"},
                 {title: '操作', minWidth: 150, toolbar: '#currentTableBar', fixed: 'right', align: "center"}
             ]], limits: [10, 15, 20, 25, 50, 100, 500],
             limit: 15,
@@ -155,7 +159,7 @@
                 , where: {
                     'xingMing': data.renYuanName,
                     'chengHao': data.chengHao,
-                    'fuZeQuYu': data.fuZeQuYu
+                    'zaiZhiZhuangTai': data.zaiZhiZhuangTai
                 }
             }, 'data');
             return false;
@@ -179,17 +183,6 @@
                         // layer.full(index);
                     }
                 });
-            } else if (obj.event === 'delete') {  // 监听删除操作
-                var checkStatus = table.checkStatus('currentTableId')
-                    , data = checkStatus.data;
-                var itemNames = [];
-                $.each(data, function (i, d) {
-                    itemNames[i] = d.groupName;
-                });
-                if(itemNames.length == 0){
-                    layer.msg('请先选择至少一个！');
-                    return false;
-                }
             }
         });
 
@@ -197,36 +190,42 @@
             var data = obj.data;
             if (obj.event === 'edit') {
                 var index = layer.open({
-                    title: '编辑角色',
+                    title: '人员信息调整',
                     type: 2,
                     shade: 0.2,
                     maxmin: true,
                     shadeClose: true,
                     area: ['80%', '80%'],
                     offset: 't',
-                    content: '${path}/to_jueSeSheZhi_edit.do',
+                    content: '${path}/to_renYuanGuanLi_edit.do',
                     success: function (lyero, index) {
                         // layer.full(index);
                         // 获取子页面的iframe
                         var iframe = window['layui-layer-iframe' + index];
                         // 向子页面的全局函数child传参
                         iframe.child(data);
+
                     },
                 });
                 return false;
             } else if (obj.event === 'delete') {
-                layer.confirm('确定删除此角色吗？', {offset: '100px', anim: 6, title: '提示'}, function (index) {
+                var shiFouLiZhi = data.shiFouLiZhi;
+                if(shiFouLiZhi === true){
+                    layer.msg(data.xingMing + "已经离职!");
+                    return false;
+                }
+                var id = data.id;
+                layer.confirm(data.xingMing  + '已确定离职了嘛？', {offset: '100px', anim: 6, title: '提示'}, function (index) {
                     $.ajax({
                         type: 'POST',
-                        url: '${path}/jueSeSheZhi/delete.do',
-                        contentType: 'application/json;charset=utf8',
-                        data: JSON.stringify(data),
+                        url: '${path}/renYuan/liZhi.do',
+                        data: {id: id},
                         success: function (res) {
                             if (res.code == 0) {
                                 layer.msg(res.msg);
                                 obj.del();
                                 layer.close(index);
-                            }else{
+                            } else {
                                 // 关闭加载框
                                 layer.close(index);
                                 layer.msg(res.msg);

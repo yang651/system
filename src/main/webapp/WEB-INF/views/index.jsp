@@ -53,7 +53,7 @@
                 </li>
             </ul>
 
-            <ul class="layui-nav layui-layout-right">
+            <ul class="layui-nav layui-layout-right" style="margin-right: 30px">
 
                 <li class="layui-nav-item" lay-unselect>
                     <a href="javascript:;" data-refresh="刷新"><i class="fa fa-refresh"></i></a>
@@ -65,7 +65,8 @@
                     <a href="javascript:;" data-check-screen="full"><i class="fa fa-arrows-alt"></i></a>
                 </li>
                 <li class="layui-nav-item layuimini-setting">
-                    <a href="javascript:;">尚未登录</a>
+                    <a href="javascript:;">
+                        <span style="font-size: 25px;color: #2D93CA">${sessionScope.LOGIN_USER}</span></a>
                     <dl class="layui-nav-child">
                         <dd>
                             <a href="javascript:;" layuimini-content-href="page/user-setting.html" data-title="基本资料"
@@ -84,9 +85,9 @@
                     </dl>
                 </li>
                 <%--配色方案--%>
-<%--                <li class="layui-nav-item layuimini-select-bgcolor" lay-unselect>--%>
-<%--                    <a href="javascript:;" data-bgcolor="配色方案"><i class="fa fa-ellipsis-v"></i></a>--%>
-<%--                </li>--%>
+                <%--                <li class="layui-nav-item layuimini-select-bgcolor" lay-unselect>--%>
+                <%--                    <a href="javascript:;" data-bgcolor="配色方案"><i class="fa fa-ellipsis-v"></i></a>--%>
+                <%--                </li>--%>
             </ul>
         </div>
     </div>
@@ -168,11 +169,33 @@
             ],
         });
 
+        //退出登录
         $('.login-out').on("click", function () {
-            layer.msg('退出登录成功', function () {
-                window.location = 'page/login-1.html';
-            });
+            // layer.msg('退出登录成功', function () {
+            //     window.location = 'page/login-1.html';
+            // });
+            layer.msg('确定退出系统？', {
+                time: 0, anim: 5, offset: '100px'
+                , btn: ['确定', '取消']
+                , yes: function (index) {
+                    layer.close(index);
+                    $.ajax({
+                        type: 'POST',
+                        url: '${path}/denglu/logout.do',
+                        success: function (res) {
+                            layer.msg(res.msg, {offset: '100px'});
+                            layer.load(0, {offset: '100px'});
+                            setTimeout(function () {
+                                location.href = '${path}/to_login.do';
+                            }, 1500);
+                        }
+                    })
+                }
+            })
+            return false;
         });
+
+
     });
 </script>
 </body>

@@ -24,9 +24,9 @@ public class RenYuanServiceImpl extends ServiceImpl<RenYuanMapper, RenYuanDO> im
      * @Date: 2021/1/15 15:41
      **/
     @Override
-    public List<RenYuanDO> getList(Integer page, Integer limit, String xingMing, String chengHao, String fuZeQuYu) {
+    public List<RenYuanDO> getList(Integer page, Integer limit, String xingMing, String chengHao, boolean shiFouLiZhi) {
         PageHelper.startPage(page, limit);
-        return baseMapper.getList(xingMing,chengHao,fuZeQuYu);
+        return baseMapper.getList(xingMing,chengHao,shiFouLiZhi);
     }
 
     /**
@@ -37,7 +37,7 @@ public class RenYuanServiceImpl extends ServiceImpl<RenYuanMapper, RenYuanDO> im
      * @Date: 2021/1/15 15:53
      **/
     @Override
-    public int getCount(Integer page, Integer limit, String xingMing, String chengHao, String fuZeQuYu) {
-        return baseMapper.getCount(xingMing,chengHao,fuZeQuYu);
+    public int getCount(Integer page, Integer limit, String xingMing, String chengHao, boolean shiFouLiZhi) {
+        return baseMapper.getCount(xingMing,chengHao,shiFouLiZhi);
     }
 }
